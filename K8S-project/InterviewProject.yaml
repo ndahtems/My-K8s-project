@@ -1,0 +1,78 @@
+ A PROJECT YOU HAVE WORKED ON:
+=====================================
+I have worked on a project for a client who wanted to migrate from a Desktop to a web application 
+The application was a hyper-smart electric meter for water pipes that gives real-time data to clients
+about their consumption, water pressure, availability, and if there were leakages on the pipes leading 
+to the client's address.
+
+A project owner is a member of an Agile dvpt team who represents the voice of the client 
+they collaborate with the stakeholder and give clarity to the project.
+they define users' stories 
+
+the Developers are in charge of writing codes and unit test cases
+
+1. PLANNING:
+===============
+High-level meetings are held between the product owner and our team leads and architects
+The product owner submits the project expectations or clients/users' stories on JIRA
+
+2. CODING:
+===========
+After the planning meeting the different features/enhancements or bugs are distributed to the team of Developers. 
+They assign user stories to themselves which are features/enhancements or bugs
+The team lead distributes the workload.
+
+2. SCM:
+========
+Coding is simultaneously done with commits to the SCM (Git/GitHub) BitBucket/AzureBucket
+
+3. DevOps:
+===========
+  There is a team of DevOs 
+  Code compilation is done to convert code written in diff languages to machine-readable format.
+  Artifacts are generated from the build  JAVA(Jar/ear/war) mvn package
+                                        C#(zip/tar)  Angular(npm install)
+  Using Jenkins, Maven is used as the build tool. the Artifacts are binaries used by the project.
+  they are packaged and Uploaded into an artifactory (Nexus) jfrog/S3/AzureBucket
+- During this process, there is security scanning, vulnerability, and code coverage.
+- Code code-coverage is when Unit test cases are written for all methods
+- there are JUnit cases in JAVA
+- If there are no artifacts in case the app is an image SNYK/Veracode can be used
+- Scanning Happens before the build, and quality gates are being set for code code-coverage in Sonar
+Here, the CI is complete.
+
+4. ENVIRONMENTS:
+================
+
+-Dev:
+  Here, dev writes codes and it is separated from the live or prod env. The codes are tested and pushed 
+  in the dev branch. Testing is done here to move a better code to the QA env. Bug fixes and enhancement
+-QA:
+  Here the codes are further tested and quality assurance.
+  they perform more functional testing and integration testing/security/regression/
+  using Selenium /Quick Test professional
+-UAT:
+  Here stakeholders test the functionality of the application to ensure that it meets the expectations
+  Users interact with the application based on the desired state of the product owner. its also a pre-prod
+-PROD:
+  Codes successful in the UAT are sent to the live/prod and issues are reported back to Dev.
+  The product is then released to end users.
+  Here, changes are strictly managed and reviewed before merging to the live env, using GitHub.
+
+  TECK-STACK:
+    All the tools that are used in the env 
+
+-Git/GitHub: SCM
+-Sonarqube: CodeCoverage
+-Security-Scanning: Selenium
+-Build: Maven/Ant/Gradle
+-Artifact: Nexus--Jar/war/ear/zip/tar 
+-CI: Jenkins
+- Containerization: Docker-DockerHub-Dockerfile-LieghtweightImages
+-ContainerOrchestration: Kubernetes/EKS/Helm/ArgoCD 
+- Cloud: AWS  S3_NFS_VPC_EC2_EKS_CLOUDWATCH_IAM_ELASTICSEARCH_DynamoDB_ELB
+- IaC: Terraform
+- ConfigurationMgnt: Ansible
+- Ticketing: Jira
+
+

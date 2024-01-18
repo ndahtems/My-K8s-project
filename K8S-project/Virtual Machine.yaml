@@ -1,0 +1,27 @@
+HOW TO DOWNLOAD AND INSTALL A VIRTUAL MACHINE:
+==============================================
+
+https://www.virtualbox.org/wiki/Downloads
+https://download.virtualbox.org/virtualbox/7.0.10/VirtualBox-7.0.10-158379-Win.exe
+
+- You need to have virtualization enabled.
+systeminfo
+Get-WindowsOptionalFeature -FeatureName Microsoft-Hyper-V-All -Online
+
+- Follow the promt and intall the vm.virtualbox
+- on th new tab, you can create and vm and chose the version
+- You can assign the memory and processor
+
+
+-Download vagrant
+
+https://releases.hashicorp.com/vagrant/2.3.7/vagrant_2.3.7_windows_amd64.msi
+
+
+Prerequisit
+4GBRAM
+64bit processor
+
+Docker Desktop:
+===============
+https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe?_gl=1*scmpvn*_ga*MTUyNjI0MDQ2MC4xNjgyNTQzMjIy*_ga_XJWPQMJYHQ*MTY5MTk1Njk3My43NS4xLjE2OTE5NTgyNTguNC4wLjA.

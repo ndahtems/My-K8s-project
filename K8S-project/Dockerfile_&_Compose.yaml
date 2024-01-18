@@ -1,0 +1,119 @@
+# Prince Chafah Forchu Sani
+
+
+- Dockerfile is the blueprint of a Docker image while a docker image is a blueprint of a Docker container.
+- A docker container is a running process(runtime instance) of an image. 
+- Containerization is relevant in that it contains all the dependencies for an application or service to run.
+- It makes the application portable and can be used in multiple environments and OS.
+- It also allows for application to be orchestrated.
+- Dockerfiles helps us to build our own images or to customize existing images
+
+
+A Dockerfile has basic syntaxs
+
+FROM     #base image reg/ns/rep: tag  OS/Linux/window/ubuntu/centos   another image  jenkins/jenkins:jre11
+
+WORKDIR   ## A dir in the container where all commands are run /.
+
+ADD  #To add files into the container. (where tiles are located) /var/www/html  in the container
+
+RUN   # packages you want to install in the container. to run all bash commands
+
+CDM    # to specify any command you want to run inside the container. They run only where is no specified command
+
+EXPOSE   #
+
+ENTRYPOINT    # entrypoint will run whether or not u specify an argument
+
+ENV   # This is used to pass some variables such as secrets or variables
+
+
+docker build -t image/repo:v1
+
+
+
+docker logs <ContainerID>
+docker exec 
+docker inspect
+
+/var/lib/docker/volumes/jenkins_home/_data
+
+
+DOCKER COMPOSE
+Docker Compose is docker configuration file that helps users manage multiple docker images
+
+sudo apt install docker.io docker-compose -y
+
+sudo docker run --name web -itd 8080:80 nginx  # This is the way to run single containers
+
+mkdir  dockercompose 
+cd dockercompose
+vi docker.compose.yaml # This is the docker recognized name for a compose
+
+---
+version: "3"
+services:
+ website:
+   images: nginx
+   ports:
+     - "8080:80"
+   restart: always
+services:
+ website:
+   images: nginx
+   ports:
+     - "8080:80"
+   restart: always
+networks:
+  coffee:
+     ipm:
+       driver: default
+       config:
+         - subnet: "192.168.92.0/24"
+
+docker-compose up -d # run the command in the directory where the compose file is located
+
+docker-compose ps 
+docker-compose stop/down
+docker network ls 
+docker inspect 
+
+
+WORDPRESS:
+============
+
+version: "3"
+services:
+  wordpress:
+    image: wordpress
+    ports:
+      - "8089:80"
+    depends_on:
+      - mysql
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: "coffee"
+      WORDPRESS_DB_NAME: wordpress
+ mysql:
+    image: "mysql:5.7"
+    environment:
+       MYSQL_DATABASE: wordpress
+       MYSQL_ROOT_PASSWORD: "coffee"
+    volumes:
+       - ./mysql:/var/lib/mysql 
+networks:
+   good:
+   ipam:
+       driver: default
+       config:
+         - subnet: "10.56.1.0/24"
+
+
+
+
+  
+
+
+
+

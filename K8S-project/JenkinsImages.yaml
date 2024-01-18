@@ -1,0 +1,88 @@
+JENKINS INTEGRATION WITH DOCKER IMAGES:
+=======================================
+# This writeup is designed to run Jenkins CI/CD using containerization technology
+#docker images of jenkins/sonarqube/nexus/tomcat are used and integrated for build
+
+#RESOURCE:
+- Provision a virtual machine of approximately 5G RAM
+
+#IMAGES AND POLICIES
+- Pull and run docker official images of Jenkins Sonarqube and nexus and attach restart policies and volume mounts(persistent)
+- The containerPort number for different containers can be the same  
+- The (OS)hostPort number can't be the same 
+Use this command to see all used ports on the hostPort
+netstat -tuln
+
+
+- JENKINS:
+===========
+Pull the Jenkins official image
+docker run -d -v jenkins_home:/var/jenkins_home -p 8080:8080 -p 50000:50000 --name jenkins --restart=on-failure jenkins/jenkins:lts-jdk11
+- If you lose your Jenkins credentials, go to the command line and 
+you can exec into the container if vi into the file using this command
+
+docker exec -u 0 -it <ContainerID> /bin/bash 
+sudo vi /var/lib/jenkins/config.xml
+
+navigate to the tag below and change the option to false
+
+then restart the Jenkins service or stop and start the Jenkins container 
+
+<useSecurity>true</useSecurity>
+
+- SONARQUBE:
+============
+
+docker run -d --name sonarqube -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true -p 9000:9000 --restart=on-failure sonarqube:latest
+
+the default password for Sonarqube is admin pwd admin
+for sonarqube integration,
+
+edit the pom.xml file and navigate to or add the properties tag. Edit the URL and add the server IP and sonar port 
+ 192.168.86.35:9000
+add the sonar username and password 
+admin
+admin123
+
+ <properties>
+         <java.version>1.8</java.version>
+         <spring.version>5.1.2.RELEASE</spring.version>
+  <junit.version>4.11</junit.version>
+  <log4j.version>1.2.17</log4j.version>
+
+  <sonar.host.url>http://192.168.86.35:9000/</sonar.host.url>
+  <sonar.login>admin</sonar.login>
+  <sonar.password>admin123</sonar.password>
+  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+- NEXUS:
+=========
+docker run -d -p 8081:8081 --name nexus -v nexus-data:/nexus-data --restart=on-failure sonatype/nexus3
+
+Nexus will prompt a file that contains the password to log into the account. copy the path to the file and cat the file using
+your local terminal. If you are using a container, run 
+
+docker exec -it <nexusid> cat <pathtofile> /bin/bash
+
+To deploy artifacts to nexus, Jenkins needs to communicate with Nuxes.
+Go to the nexus UI and on the repo, create a snapshot and release repo
+edit or add the distribution management tag in the pom.xml file and add nexus snapshot and release URL
+
+http://192.168.86.35:8081/repository/Group_go_Snapshot/
+http://192.168.86.35:8081/repository/Group_go_Release/
+
+you also need to vi into the settings.xml file located in the Jenkins server and add the login credentials of nexus in the server tag
+
+vi /var/jenkins_home/tools/hudson.tasks.Maven_MavenInstallation/maven3.9.4/conf/settings.xml
+
+<server>
+   <id>nexus</id>
+   <username>admin</username>
+   <password>admin123</password>
+</server>
+
+
+
+
